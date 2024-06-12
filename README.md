@@ -69,7 +69,7 @@ cd traffic-light-controller
 
 ## Code Explanation
 
-# Part A) External Interrupts
+### Part A) External Interrupts
 
 The code initializes and handles external interrupts on the PIC18F4620. External interrupts allow the microcontroller to respond to events such as button presses without constantly checking the input pins.
 
@@ -82,7 +82,7 @@ The ISRs handle the events triggered by external interrupts. When an interrupt o
 **- Main Loop:**
 The main loop continuously checks the software flags and processes the interrupts, printing messages to indicate which interrupt has occurred.
 
-# Part B) Pedestrian Request Handling
+### Part B) Pedestrian Request Handling
 
 The project extends the use of external interrupts to manage pedestrian requests in a traffic light system.
 
@@ -95,7 +95,7 @@ The ISRs for INT0 and INT1 are modified to set **`NS_PED_SW`** and **`EW_PED_SW`
 **- Main Traffic Control:**
 The main routine from Lab 8 is used, with modifications to handle pedestrian requests using the new variables.
 
-# Part C) Flashing Mode
+### Part C) Flashing Mode
 
 The project implements a flashing mode for emergency situations, triggered by an external interrupt on INT2.
 
