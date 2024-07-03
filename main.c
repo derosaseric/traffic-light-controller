@@ -1,21 +1,22 @@
 // Header files
-#include <p18f4620.h>                                                                   // Include p18f4620 functions
-#include <stdio.h>                                                                      // Include standard input and output functions
-#include <math.h>                                                                       // Include math library functions
-#include <usart.h>                                                                      // Include usart related functions
-#include <stdlib.h>                                                                     // Include standard library functions
-#include <xc.h>                                                                         // Include xc related functions
-#include <string.h>                                                                     // Include string library functions
+#include <p18f4620.h>                                                                   // Functions for PIC18F4620 microcontroller
+#include <stdio.h>                                                                      // Standard I/O functions
+#include <math.h>                                                                       // Math library functions
+#include <usart.h>                                                                      // USART functions
+#include <stdlib.h>                                                                     // Standard library functions
+#include <xc.h>                                                                         // XC8 compiler functions
+#include <string.h>                                                                     // String manipulation functions
 
-#include "ST7735_TFT.h"                                                                 // Include "ST7735_TFT.h" header & material
-#include "main.h"                                                                       // Include "main.h"  header & material
+#include "ST7735_TFT.h"                                                                 // Functions for ST7735 TFT display
+#include "main.h"                                                                       // Project-specific definitions
 
-#pragma config OSC = INTIO67                                                            // Select internal clock
-#pragma config WDT=OFF                                                                  // Watchdog time OFF
-#pragma config LVP=OFF                                                                  // Low voltage programming OFF
-#pragma config BOREN =OFF                                                               // Brown-out reset OFF
+// Configuration settings
+#pragma config OSC = INTIO67                                                            // Internal clock
+#pragma config WDT=OFF                                                                  // Watchdog Timer OFF
+#pragma config LVP=OFF                                                                  // Low-Voltage Programming OFF
+#pragma config BOREN =OFF                                                               // Brown-Out Reset OFF
 
-                                                                                        //  Start of Function Prototypes
+// Function Prototypes
 unsigned int Get_full_ADC(void);                                                        //
 void Init_ADC(void);                                                                    //
 void Init_TRIS(void);                                                                   //
