@@ -146,7 +146,6 @@ char direction;                                                                 
 float volt;                                                                             // Float value for volt (includes decimals)
 int nStep;                                                                              // Integer value for nStep
 
-// Lab 9 New Variables
 int INT0_flag, INT1_flag, INT2_flag = 0;                                                // Variable Initializations for flags set to the value zero
 char FLASHING = 0;                                                                      // Variable Initialization set to zero, variable used in Do_Flashing() method)
 char FLASHING_REQUEST = 0;                                                              // Variable Initialization set to the value zero, used to determine to execution
@@ -155,38 +154,44 @@ char FLASHING_REQUEST = 0;                                                      
 // *************************
 // Main Function
 // *************************
-void main()                                                                             // Beginning of main function
+void main()                                                                             
 {
-    Do_Init();                                                                          // Initialization 
-    Init_TRIS();                                                                        // Initialize TRIS/ports
-    Initialize_Screen();                                                                // Initialize the TFT screen
-    // Get voltage from the photo resistor
-    Select_ADC_Channel(0);                                                              // Set value of ADC_channel to 0, AN0
-    Get_Light_Readout();                                                                // Performs or calls to Get_Light_Readout()
-    SW_MODE = volt < 3.5 ? 1:0;                                                         // Mode = 1, Day_mode, Mode = 0 Night_mode  
+    // Initialize system and peripherals
+    Do_Init();                                                                           
+    Init_TRIS();                                                                        
+    Initialize_Screen();
+
+    // Get voltage from the photoresistor and determine the mode (day/night)
+    Select_ADC_Channel(0);                                                              
+    Get_Light_Readout();                                                                
+    SW_MODE = volt < 3.5 ? 1:0;                                                         
     
-    // Part 5
-    while(1)                                                                            // Forever loop
+    // Main loop: Continuously monitor and control traffic lights
+    while(1)                                                                            
     {   
-        if (SW_MODE)                                                                    // if the variable volt has a value less than 3.5
+        if (SW_MODE) // Day mode                                                        
         {
-            Day_Mode();                                                                 // Execute the function Day_Mode()
-            if (FLASHING_REQUEST)                                                       // Execute "if block" if variable has the value of 1
+            Day_Mode(); // Execute day mode operations
+
+            // Handle flashing request if any                                                        
+            if (FLASHING_REQUEST)                                                      
             {
-                FLASHING_REQUEST = 0;                                                   // Clear the variable value to zero
-                Do_Flashing();                                                          // Call the Do_Flashing() method 
+                FLASHING_REQUEST = 0; // Reset flashing request flag                                               
+                Do_Flashing();        // Execute flashing sequence                                               
             }
         }
-        else                                                                            // else the value of volt is greater than 3.5
+        else // Night mode
         {
-            // Lab 9 New Code
-            NS_PED_SW = 0;                                                              // Assign the value zero for both variables to prevent any
-            EW_PED_SW = 0;                                                              // pedestrian process to be handled in night mode    
-            Night_Mode();                                                               // Execute the function Night_Mode()
-            if (FLASHING_REQUEST)                                                       // Execute "if block" if variable has the value of 1
+            // Disable pedestrian switches during night mode
+            NS_PED_SW = 0;                                                              
+            EW_PED_SW = 0;                                                             
+            Night_Mode(); // Execute night mode operations
+
+            // Handle flashing request if any                                                 
+            if (FLASHING_REQUEST)                                                       
             {
-                FLASHING_REQUEST = 0;                                                   // Clear the variable value to zero
-                Do_Flashing();                                                          // Call the Do_Flashing() method 
+                FLASHING_REQUEST = 0; // Reset flashing request flag                                           
+                Do_Flashing();        // Execute flashing sequence                                              
             }
         }
     }
